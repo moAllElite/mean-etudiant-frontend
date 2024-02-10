@@ -1,0 +1,42 @@
+.is-brown{
+  background: var(--main-bg-color);
+}
+.navbar{
+  padding-left:  2em ;
+  padding-right: 2em;
+}
+
+.is-white{
+  color: #fff;
+}
+.buttons{
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.offcanvas-title{
+  text-align: center;
+}
+ul > li > a{
+  text-transform: full-size-kana;
+  font-size: 1.2em;
+}
+ul , li :hover,
+ul li:hover .nav-link,
+ul li:hover .nav-link i{
+  color: #F2AC57;
+  transition: 0.2s color ease-in;
+}
+
+.btn-close{
+  --bs-btn-close-color:white;
+  --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+}
+
+@property --main-bg-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #351D13;
+}
+
+

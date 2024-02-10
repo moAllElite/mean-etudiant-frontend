@@ -1,0 +1,154 @@
+.snippets{
+  margin: 15em 0 0  0;
+  background: #351D13;
+  height:600px;
+  width: 100%;
+  position: relative;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  padding: 3.5em;
+  gap: 110px;
+}
+.spells{
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-zone{
+  display: table-column;
+  direction: ltr;
+  padding:0 ;
+  margin:0  0  0  -0.5em;
+  text-align: center;
+  letter-spacing: 2px;
+}
+.title{
+  font-weight: 900;
+}
+.paragraph{
+  text-transform: capitalize;
+  margin: 0 0 0 -69%;
+}
+.buttons{
+  display: flex;
+  flex-wrap: wrap;
+  gap:1.2rem;
+  margin: 3em 0 0 0.5em;
+}
+.btn{
+  border-radius: 30px;
+  width: 170px;
+  height: 50px;
+  text-transform: capitalize;
+}
+.btn-buy{
+  background: var(--is-orange);
+  border: 1 solid var(--is-orange)  ;
+  font-weight: 700;
+}
+.btn-explore{
+  border: 1px solid white;
+  background: transparent;
+}
+
+.btn:hover{
+  opacity: 0.7;
+  transition: 0.2s opacity ease-in;
+}
+
+.photo{
+  margin: 12em 0 0  0;
+}
+
+
+
+@media  (max-width: 800px) {
+  .snippets{
+    max-height: 1200px;
+  }
+  .spells{
+    display: table-row;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .photo{
+    margin:100%  2% 0 5%;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    max-width: 400px;
+  }
+  .text-zone{
+    margin: 0 2% 0 -2%;
+    letter-spacing: 1px;
+  }
+  .buttons{
+    gap: 3%;
+    padding: 2em;
+    direction: ltr;
+    margin:0 2em 0 1rem;
+  }
+  .btn{
+    border-radius: 30px;
+    margin-bottom: 2em;
+    min-width: 370px;
+    height: 50px;
+    text-transform: capitalize;
+  }
+  .title{
+    margin-right: 2.2em;
+  }
+  .paragraph{
+    margin-right: -2em;
+  }
+}
+
+@media (width: 300px) {
+  .photo{
+    min-width: 100px;
+    align-content: center;
+    justify-content: center;
+    margin-left: 0;
+  }
+  .paragraph{
+    margin-right: 1px;
+  }
+  .buttons{
+    margin-left: -25px;
+    margin-bottom: 25em;
+  }
+}
+/*@media (min-width: 200px) {
+  .snippets{
+    height: 700px;
+    position: relative;
+  }
+  .buttons{
+    gap: 1%;
+    margin-top: -1.5em;
+    margin-bottom: 15em;
+  }
+  .photo{
+    min-width: 100px;
+    margin: 120% 5%  0  0;
+  }
+  .buttons{
+    margin-bottom: 4%;
+  }
+}*/
+@property --is-colored-white{
+  inherits: false;
+  syntax: "<color>";
+  initial-value: #fff;
+}
+@property --is-orange {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #AE6021;
+}
+.is-white{
+  color:var(--is-colored-white);
+}
