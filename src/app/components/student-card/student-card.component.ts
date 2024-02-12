@@ -15,7 +15,7 @@ import {DatePipe, TitleCasePipe} from "@angular/common";
       <h5 class="card-header">{{student.nom_complet | titlecase}}</h5>
       <div class="card-body">
         <h5 class="card-title">{{student.email}}</h5>
-        <p class="card-text">{{student.createdAt | date : 'dd-MM-yyyy'}}</p>
+        <p class="card-text">created at:  {{student.createdAt | date : 'dd-MM-yyyy'}}</p>
         <a href="#" class="btn btn-primary">Details</a>
       </div>
     </div>

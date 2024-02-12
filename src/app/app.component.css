@@ -1,0 +1,11 @@
+@property --hover{
+    initial-value: #{adjust-hue($color, 45deg)};
+  syntax: "*";
+  inherits: false;
+}
+
+
+.slide:hover,
+.slide:focus {
+  box-shadow: inset 6.5em 0 0 0 var(--hover);
+}

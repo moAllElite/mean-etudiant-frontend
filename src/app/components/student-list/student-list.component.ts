@@ -26,12 +26,14 @@ import {Student} from "../../student/student.interface";
   styles:[`
 
     .main{
+
         display: flex;
         justify-content: center;
         align-items: center;
         flex-wrap:wrap;
-        gap:2.5em;
-        margin: 0 0 5em 0;
+        row-gap: 1.2em;
+        column-gap: 7em;
+        margin: 1.5rem 2em 5em 2em;
       }
     .cover{
         margin:5em 0 0 0;

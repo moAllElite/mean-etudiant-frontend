@@ -1,0 +1,57 @@
+
+.container{
+  margin-top: 6em;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+h1{
+  text-align: center;
+}
+.card-header{
+  background: transparent;
+}
+.card-body{
+  background:var(--is-orange);
+  width: 600px;
+  color: white;
+  elevation: higher;
+}
+.form-label{
+  font-weight: 600;
+}
+.form-control{
+  max-width: 90%;
+}
+.send{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn{
+  border:1px solid var(--is-orange);
+  background: white;
+  elevation: level;
+  border-radius: 20px;
+  width: 100px;
+  color: var(--is-brown);
+}
+.btn:hover{
+  opacity: 0.9;
+  color: white;
+  background-color: var(--is-brown);
+  box-shadow: inset 6.5em 0 0 0 var(--hover) ;
+  transition: 20s background-color revert;
+}
+@property --is-brown{
+  initial-value: #351D13;
+  syntax: "<color>";
+  inherits: false;
+}
+@property --is-orange{
+  initial-value: #AE6021;
+  syntax: "<color>";
+  inherits: false;
+}

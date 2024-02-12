@@ -25,4 +25,10 @@ export class EtudiantService {
       `${this.HOST}/{email}`
     );
   }
+
+  saveStudent(student:Student){
+    return this.httpClient.post(
+      this.HOST,student
+    );
+  }
 }
