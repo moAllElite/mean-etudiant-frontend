@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgForOf, TitleCasePipe,  UpperCasePipe} from "@angular/common";
+import { transition } from '@angular/animations';
 
 @Component({
   selector: 'app-navbar',
@@ -15,6 +16,11 @@ import {NgForOf, TitleCasePipe,  UpperCasePipe} from "@angular/common";
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+    closeOffcanva:boolean= false;
+    hidden:boolean=true;
+    showSearchZone(value: boolean):void{
+      this.hidden=value;
+    }
   items:
     {
       name:string,
@@ -26,5 +32,7 @@ export class NavbarComponent {
     {name:'update student', route:'update-student/:email',icon:'bi bi-pencil-fill'},
   ]
 
-
+  onClick() {
+      this.closeOffcanva=true;
+    }
 }

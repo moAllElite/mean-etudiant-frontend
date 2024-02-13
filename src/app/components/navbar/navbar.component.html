@@ -1,9 +1,14 @@
 <nav class="navbar is-brown fixed-top">
   <div class="container-fluid">
     <a class=" is-white navbar-brand " routerLink="">Fundo</a>
-
+      <div class="col-md-3 " [hidden]="hidden">
+        <div class="form-group has-search">
+          <i class="bi bi-search is-whie  form-control-feedback"></i>
+          <input type="text" class="form-control" placeholder="Search"  (mouseleave)="showSearchZone(true)">
+        </div>
+     </div>
     <div class="buttons">
-      <button class="btn " type="submit"><i class="bi bi-search is-white"></i></button>
+      <button class="btn loupe"   (click)="showSearchZone(false)"   [hidden]="!hidden"  type="submit"><i class="bi bi-search is-white"></i></button>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
         <i class="bi bi-grid is-white"></i>
@@ -14,14 +19,14 @@
       <div class="offcanvas-header">
         <h4 class="offcanvas-title is-white " id="offcanvasNavbarLabel">Menu</h4>
 
-        <button type="button" class="btn-close " data-bs-dismiss="offcanvas"  aria-label="Close "></button>
+        <button type="button"class="btn-close " data-bs-dismiss="offcanvas"  aria-label="Close"></button>
       </div>
 
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           @for (item of items;track item; ){
             <li class="nav-item">
-              <a class="nav-link  is-white  " aria-current="page" [routerLink]="item.route"  >
+              <a class="nav-link  is-white  " aria-current="page" [hidden]="onClick()" [routerLink]="item.route"  >
                 <i [class]="item.icon " class="is-white"></i>
                 {{item.name | titlecase }}
               </a>

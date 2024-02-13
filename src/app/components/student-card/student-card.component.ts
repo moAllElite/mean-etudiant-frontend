@@ -1,13 +1,15 @@
 import {Component, Input} from '@angular/core';
-import {Student} from "../../student/student.interface";
+import {Student} from "../../model/student.model";
 import {DatePipe, TitleCasePipe} from "@angular/common";
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-card',
   standalone: true,
   imports: [
     DatePipe,
-    TitleCasePipe
+    TitleCasePipe,
+    RouterLink
   ],
   template:`
 
@@ -16,7 +18,7 @@ import {DatePipe, TitleCasePipe} from "@angular/common";
       <div class="card-body">
         <h5 class="card-title">{{student.email}}</h5>
         <p class="card-text">created at:  {{student.createdAt | date : 'dd-MM-yyyy'}}</p>
-        <a href="#" class="btn btn-primary">Details</a>
+        <button class="btn btn-primary" (click)="onShowDetails(student._id) "  >Details</button>
       </div>
     </div>
   `,
@@ -26,6 +28,8 @@ import {DatePipe, TitleCasePipe} from "@angular/common";
       min-width: 300px;
       min-height: 210px;
       line-height: 2.5rem;
+      margin: 0 0 -17% 0;
+      inset: 0;
     }
     .card-body{
       text-align: center;
@@ -35,6 +39,13 @@ import {DatePipe, TitleCasePipe} from "@angular/common";
     }
   `]
 })
-export class StudentCardComponent {
+export class StudentCardComponent  {
   @Input() student !: Student;
+  constructor(readonly router:Router) {
+  }
+
+  onShowDetails(id:string):void{
+    this.router.navigateByUrl(`student/${id}`).then();
+  }
+
 }

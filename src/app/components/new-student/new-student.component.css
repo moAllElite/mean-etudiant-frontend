@@ -1,6 +1,6 @@
 
 .container{
-  margin-top: 6em;
+  margin-top: 5em;
   display: flex;
   align-content: center;
   justify-content: center;
@@ -14,7 +14,7 @@ h1{
   background: transparent;
 }
 .card-body{
-  background:var(--is-orange);
+  background:var(--is-brown);
   width: 600px;
   color: white;
   elevation: higher;
@@ -31,7 +31,7 @@ h1{
   justify-content: center;
 }
 .btn{
-  border:1px solid var(--is-orange);
+  border:1px solid var(--is-brown);
   background: white;
   elevation: level;
   border-radius: 20px;
@@ -39,9 +39,10 @@ h1{
   color: var(--is-brown);
 }
 .btn:hover{
+  border:1px solid var(--is-orange);
   opacity: 0.9;
   color: white;
-  background-color: var(--is-brown);
+  background-color: var(--is-orange);
   box-shadow: inset 6.5em 0 0 0 var(--hover) ;
   transition: 20s background-color revert;
 }
@@ -54,4 +55,14 @@ h1{
   initial-value: #AE6021;
   syntax: "<color>";
   inherits: false;
+}
+
+.modal-body{
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+}
+.text-danger{
+   font-weight: 900;
 }

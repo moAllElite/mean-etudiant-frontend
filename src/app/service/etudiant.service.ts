@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Student } from '../student/student.interface';
+import {Injectable, InputSignal, WritableSignal} from '@angular/core';
+import { Student } from '../model/student.model';
 import {Observable} from "rxjs";
 
 
@@ -20,9 +20,14 @@ export class EtudiantService {
     );
   }
 
-  searchByEmail(email : string){
-    return this.httpClient.get(
-      `${this.HOST}/{email}`
+  getStudentById(id: any):Observable<Student>{
+    return this.httpClient.get<Student>(
+      `${this.HOST}/find-by/${id}`
+    );
+  }
+  searchByEmail(email : string):Observable<Student>{
+    return this.httpClient.get<Student>(
+      `${this.HOST}/${email}`
     );
   }
 
@@ -31,4 +36,6 @@ export class EtudiantService {
       this.HOST,student
     );
   }
+
+
 }

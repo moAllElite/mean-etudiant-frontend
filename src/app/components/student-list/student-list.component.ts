@@ -1,10 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { routes } from './../../app.routes';
+import {Component, Input, OnInit, Output} from '@angular/core';
 import {NavbarComponent} from "../navbar/navbar.component";
 import {DatePipe, NgForOf, TitleCasePipe} from "@angular/common";
 import {EtudiantService} from "../../service/etudiant.service";
 import {StudentCardComponent} from "../student-card/student-card.component";
-import {Student} from "../../student/student.interface";
-
+import {Student} from "../../model/student.model";
 
 @Component({
   selector: 'app-student-list',
@@ -26,14 +26,13 @@ import {Student} from "../../student/student.interface";
   styles:[`
 
     .main{
-
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content:center;
         flex-wrap:wrap;
-        row-gap: 1.2em;
-        column-gap: 7em;
-        margin: 1.5rem 2em 5em 2em;
+        row-gap: 0;
+        column-gap: 1.5rem;
+        margin: 1.5rem 15em -5% 15em;
       }
     .cover{
         margin:5em 0 0 0;
@@ -47,16 +46,15 @@ import {Student} from "../../student/student.interface";
 export class StudentListComponent implements OnInit{
   titles:{name:string}[] =  [{name:'nom complet'},{name: 'email'}, {name:'téléphone'}, {name:'classe'}, {name:'create at'}];
 
-
   students !:Student[];
-  constructor( readonly studentService:EtudiantService){}
+  constructor( readonly studentService:EtudiantService ){}
+
 
   ngOnInit(): void {
         this.studentService.getAllStudent().subscribe(
           {
             next: (data:Student[]):void=> {
               this.students = data;
-              console.log(data);
             },
             error: (err:any)=>console.log(err)
           }
