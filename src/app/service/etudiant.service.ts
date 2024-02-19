@@ -1,8 +1,8 @@
 import {HttpClient} from '@angular/common/http';
-import {Injectable, InputSignal, WritableSignal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Student } from '../model/student.model';
-import {Observable} from "rxjs";
-
+import { Observable} from "rxjs";
+import {Messages} from "../model/messages.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,11 +31,36 @@ export class EtudiantService {
     );
   }
 
-  saveStudent(student:Student){
-    return this.httpClient.post(
+  saveStudent(student:Student):Observable<Messages >{
+    return this.httpClient.post<Messages>(
       this.HOST,student
     );
   }
 
 
+  deleteStudent(email: string):Observable<Messages> {
+    return this.httpClient.delete<Messages>(
+      `${this.HOST}/${email}`
+    );
+  }
+
+  editStudent(email:string, student:Student):Observable<Student> {
+    return this.httpClient.put<Student>(
+      `${this.HOST}/${email}`,student
+    );
+  }
+
+  /**
+   * calculate difference between created date and date now
+   * @param date
+   */
+  public calculateDiff(date: string): number {
+    let currentDate: Date = new Date();
+    let dateSent: Date = new Date(date);
+    return Math.floor(
+      (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
+        - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())
+      )
+      / (1000 * 60 * 60 * 24));
+  }
 }

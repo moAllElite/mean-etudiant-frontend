@@ -40,7 +40,10 @@ ul li:hover .nav-link i{
 }
 
 
-
+.is-centered{
+  flex-wrap: wrap;
+  margin: 0 3rem 0 5rem;
+}
 /* Bootstrap 5 text input with search icon */
 .has-search .form-control {
   transition:2s ease-in;
@@ -48,9 +51,6 @@ ul li:hover .nav-link i{
 }
 /* Bootstrap 5 text input with search icon */
 
-.has-search .form-control {
-  padding-left: 2.375rem;
-}
 
 .has-search .form-control-feedback {
   position: absolute;

@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
+import {Component,  Input} from '@angular/core';
 import {Student} from "../../model/student.model";
-import {DatePipe, TitleCasePipe} from "@angular/common";
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {DatePipe, NgIf, TitleCasePipe} from "@angular/common";
+import { Router, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-card',
@@ -9,7 +9,8 @@ import {ActivatedRoute, Router, RouterLink} from '@angular/router';
   imports: [
     DatePipe,
     TitleCasePipe,
-    RouterLink
+    RouterLink,
+    NgIf
   ],
   template:`
 

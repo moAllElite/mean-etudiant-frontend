@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     padding: 3.5em;
-    gap: 110px;
+    gap: 100px;
   }
 
   .spells {
@@ -24,14 +24,13 @@
     display: table-column;
     direction: ltr;
     padding: 2em;
-    margin: 0 0 0 -2.9em;
+    margin: 0 0 0 -2.7em;
     text-align: left;
     letter-spacing: 3px;
   }
 
   .title {
     font-weight: 900;
-
   }
 
   .paragraph {
@@ -43,7 +42,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.2rem;
-    margin: 3em 0 0 0.5em;
+    margin: 3em 0 0 0;
   }
 
   .btn {
@@ -73,7 +72,47 @@
     margin: 12em 0 0 0;
     width:700px;
   }
+ /**
+  * offers grid columns
+  */
 
+   .paddings{
+     padding: 2.5em;
+   }
+   .offers{
+     padding: 0 1.5em 2em 5em;
+     flex-wrap: wrap-reverse;
+     margin: 10% 0 0  -2em;
+   }
+   .offer-title{
+     margin: -15px 0 15px  -2px ;
+   }
+   .lorem{
+     font-weight: 100;
+     font-size: 15px;
+     padding: 0 30em 0  0;
+   }
+   .parks{
+     display: table-column;
+     gap: 5em;
+     margin: 0 0 0 1em;
+   }
+   .bg-grey{
+     background: #F2ECEC;
+   }
+   .main-gym{
+     display: flex;
+     flex-wrap: wrap-reverse;
+     justify-content: center;
+     align-content: center;
+     max-width: 300px;
+     max-height: 270px;
+     row-gap: 0;
+
+   }
+   .gym-photo{
+     width: 90px;
+   }
 
 @media (max-width: 1200px) {
   body{
@@ -122,37 +161,7 @@
   }
 }
 
-/*@media (min-width: 300px) {
 
-
-  .text-zone {
-    margin-top: 15em;
-  }
-
-  .photo {
-    min-width: 100px;
-    max-width: 300px;
-    margin: 5em 0 0 0;
-  }
-}*/
-/*@media (min-width: 200px) {
-  .snippets{
-    height: 700px;
-    position: relative;
-  }
-  .buttons{
-    gap: 1%;
-    margin-top: -1.5em;
-    margin-bottom: 15em;
-  }
-  .photo{
-    min-width: 100px;
-    margin: 120% 5%  0  0;
-  }
-  .buttons{
-    margin-bottom: 4%;
-  }
-}*/
 @property --is-colored-white{
   inherits: false;
   syntax: "<color>";

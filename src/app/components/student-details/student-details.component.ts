@@ -1,43 +1,55 @@
 import {AsyncPipe, DatePipe, NgIf, TitleCasePipe} from '@angular/common';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute,  RouterLink} from '@angular/router';
 import { Student } from '../../model/student.model';
-import {Component, computed, Input, input, Signal, signal, WritableSignal} from '@angular/core';
+import {Component,  signal} from '@angular/core';
 import { EtudiantService } from '../../service/etudiant.service';
 import {Observable} from "rxjs";
+import {Messages} from "../../model/messages.model";
+import {ModalMessageComponent} from "../modal-message/modal-message.component";
+
 
 @Component({
   selector: 'app-item-details',
   standalone: true,
-  imports: [TitleCasePipe, NgIf, AsyncPipe, DatePipe,RouterLink],
+  imports: [TitleCasePipe, NgIf, AsyncPipe, DatePipe, RouterLink, ModalMessageComponent],
   template: `
 
-    <div class="card text-center">
-      <div class="card-header">
-        Featured
+      <div class="card text-center">
+        <div class="card-header">
+          Featured
+        </div>
+          <div class="card-body" *ngIf="student$  | async as item">
+            <h5 class="card-title">{{ item.nom_complet | titlecase }}</h5>
+            <p class="card-text">{{ item.classe }}</p>
+            <p class="card-text">{{ item.email }}</p>
+            <p class="card-text">{{ item!.telephone }}</p>
+
+            @if (etudiantService.calculateDiff(item.createdAt) > 0 ; as b ) {
+              <p class="card-text">{{etudiantService.calculateDiff(item.createdAt) }}  day(s) ago</p>
+            } @else if (etudiantService.calculateDiff(item.createdAt) == 0) {
+              <p class="card-text"> Earlier today</p>
+            } @else {
+              <p class="card-text"> Empty</p>
+            }
+
+            <button class="btn btn-outline-danger" (click)="onDelete(item.email)" type="button"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <i class="bi bi-trash2"></i>
+              Delete
+            </button>
+        </div>
+        <div class="card-footer text-body-secondary">
+        </div>
       </div>
 
-      <div class="card-body"  *ngIf="student | async as item">
-        <h5 class="card-title">{{item.nom_complet | titlecase}}</h5>
-        <p class="card-text">{{item.classe}}</p>
-        <p class="card-text">{{item.email}}</p>
-        <p  class="card-text">{{item!.telephone}}</p>
 
-        @if (calculateDiff(item.createdAt) <=30 ){
-          <p  class="card-text" >{{calculateDiff(item.createdAt)}} day(s) ago</p>
-        }@else{
-          <p  class="card-text" > Empty</p>
-        }
-        <button  class="btn btn-primary" routerLink="/students" >
-          <i class="bi bi-arrow-left"></i>
-          Back for
-        </button>
-      </div>
+        <app-modal
+          [hidden]="showDeleteMessage()"
+          [redirect]="redirect()"
+          [message]="message()"
+          [icons]="icons">
+            </app-modal>
 
-
-      <div class="card-footer text-body-secondary">
-
-      </div>
-    </div>
   `,
   styles: [`
     .card{
@@ -53,26 +65,31 @@ import {Observable} from "rxjs";
 
 })
 export class StudentDetailsComponent {
-  datediff=signal("a");
-
+  showDeleteMessage=signal(true);
   id:string="";
-  student!:Observable<Student>;
-  constructor(private route: ActivatedRoute, readonly etudiantService: EtudiantService) {
+  icons:string='';
+  message=signal('');
+  redirect=signal('');
+  student$!:Observable<Student>;
+  delete$!:Observable<Messages>;
+  constructor(private route: ActivatedRoute,readonly etudiantService: EtudiantService) {
     this.id =  this.route.snapshot.params['id'];
-    this.student = this.etudiantService.getStudentById(this.id);
+    this.student$ = this.etudiantService.getStudentById(this.id);
+
   }
 
-  /**
-   * calculate difference between created date and date now
-   * @param date
-   */
-  calculateDiff(date: string): number {
-    let currentDate: Date = new Date();
-    let dateSent: Date = new Date(date);
-    return Math.floor(
-      (Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate())
-        - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())
-      )
-      / (1000 * 60 * 60 * 24));
+  onDelete(email:string) {
+    this.showDeleteMessage.set(false);
+    this.etudiantService.deleteStudent(email).subscribe(
+      value => {
+        this.message.set(value.msg);
+        this.icons=value.status_code==400? 'bi bi-exclamation-diamond': ' bi bi-check2-circle';
+
+        this.redirect.set('/students');
+      }
+    );
   }
+
+
+
 }

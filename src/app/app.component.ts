@@ -12,5 +12,6 @@ import {NgOptimizedImage} from "@angular/common";
   imports: [RouterOutlet, NavbarComponent, StudentListComponent, NgOptimizedImage]
 })
 export class AppComponent {
-  title = 'angular-etudiant-mean';
+  title = 'etudiant mean';
+
 }
