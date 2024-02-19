@@ -1,5 +1,5 @@
 import {Component,  signal} from '@angular/core';
-import { Router, RouterLink} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {AsyncPipe, NgForOf, NgIf, TitleCasePipe, UpperCasePipe} from "@angular/common";
 import {StudentCardComponent} from "../student-card/student-card.component";
 import {EtudiantService} from "../../service/etudiant.service";
@@ -20,7 +20,8 @@ import {ListGroupComponent} from "../list-group/list-group.component";
     FormsModule,
     AsyncPipe,
     NgIf,
-    ListGroupComponent
+    ListGroupComponent,
+    RouterLinkActive
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -34,7 +35,7 @@ export class NavbarComponent  {
       route:string,
       icon: string
     }[] =[
-    { name:'home', route:'',icon:'bi bi-house'},
+    { name:'home', route:'home',icon:'bi bi-house'},
     { name:'new student', route:'new-student',icon:'bi bi-person-add'},
     {name:'list students', route:'students',icon:'bi bi-list'},
   ]

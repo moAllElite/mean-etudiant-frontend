@@ -23,9 +23,9 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           @for (item of items;track item; ){
-            <li class="nav-item">
-              <a class="nav-link  is-white  " aria-current="page"  [routerLink]="item.route" aria-label="Close"  >
-                <i [class]="item.icon " class="is-white"></i>
+            <li class="nav-item " >
+              <a class="nav-link  is-white   "  routerLinkActive="active-link" [routerLink]="item.route" aria-label="Close"  >
+                <i [class]="item.icon " class="is-white" routerLinkActive="active-link"></i>
                 {{item.name | titlecase }}
               </a>
             </li>
