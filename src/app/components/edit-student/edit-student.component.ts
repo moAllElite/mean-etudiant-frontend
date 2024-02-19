@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Student} from "../../model/student.model";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import { Router} from "@angular/router";
 import {EtudiantService} from "../../service/etudiant.service";
+import {DatePipe, NgIf} from "@angular/common";
 
 
 @Component({
@@ -10,85 +11,151 @@ import {EtudiantService} from "../../service/etudiant.service";
   standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DatePipe,
+    NgIf
   ],
   template:`
-    <form class="row g-3"  formGroupName="formGroup">
-      <div class="col-md-4">
-        <label for="validationDefault01" class="form-label">ID</label>
-        <input type="text" class="form-control" id="validationDefault01" value="" readonly name="_id" required="">
-      </div>
-      <div class="col-md-4">
-        <label for="validationDefault02" class="form-label">Full name</label>
-        <input  type="text" class="form-control" id="validationDefault02" value="" name="nom_complet"
-               required>
-      </div>
-      <div class="col-md-4">
-        <label for="validationDefaultUsername" class="form-label">Email</label>
-        <div class="input-group">
-          <input type="text" name="email" class="form-control" id="validationDefaultUsername" aria-describedby="inputGroupPrepend2" required="">
+    <!--EDIT Modal FORM  -->
+    <div [hidden]="hiddenEditForm" class="modal fade" id="exampleModalUpdate" tabindex="-1"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit student</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" [formGroup]="formGroup" (ngSubmit)="onSaveChanges(student.email,student)" >
+              <div class="input-group  mb-3">
+                <span class="input-group-text" id="basic-addon1">ID</span>
+                <input id="_id" name="_id" class="form-control" type="text" formControlName="_id"
+                       aria-label="readonly input example" readonly>
+              </div>
+              <label for="floatingInputInvalid" class="form-label">Email</label>
+              <div  class="form-floating mb-3">
+                <input formControlName="email" type="email" name="email"
+                       [class]="email?.valid?'form-control':'form-control is-invalid' "
+                       id="floatingInputInvalid" placeholder="name@example.com">
+                @if( email?.invalid && (email?.dirty || email?.touched)){
+                  <label for="floatingInputInvalid" *ngIf="email?.errors?.['required']" class="text-danger" >Class is required</label>
+                  <label for="floatingInputInvalid" class="text-danger" *ngIf="email?.errors?.['email'] ">Email is invalid</label>
+
+                }
+              </div>
+              <div class="mb-3">
+                <label for="validationCustomUsername" class="form-label">Full name</label>
+                <div class="input-group has-validation mb-3">
+                  <input  formControlName="nom_complet" name="nom_complet" type="text" [class]="nom_complet?.valid?'form-control':'form-control is-invalid'" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                  <div class="invalid-feedback">
+                    @if( nom_complet?.invalid && (nom_complet?.dirty || nom_complet?.touched)){
+                      <div *ngIf="nom_complet?.errors?.['required']" [class]="nom_complet?.valid?'invalid-feedback':'text-danger  mb-3'" >Full name is required</div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="validationTel" class="form-label">Phone</label>
+                <div class="input-group has-validation mb-3">
+                  <input  formControlName="telephone" name="telephone" type="text" [class]="telephone?.valid?'form-control':'form-control is-invalid'" id="validationTel" aria-describedby="inputGroupPrepend" required>
+                  <div class="invalid-feedback">
+                    @if(telephone?.invalid && (telephone?.dirty || classe?.touched)){
+                      <div *ngIf="telephone?.errors?.['required']" class="text-danger  mb-3'" >Class is required</div>
+                    }
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="validationClasse" class="form-label">Class</label>
+                <div class="input-group has-validation mb-3">
+                  <input  formControlName="classe" name="classe" type="text" [class]="classe?.valid?'form-control':'form-control is-invalid'" id="validationClasse" aria-describedby="inputGroupPrepend" required>
+                  <div class="invalid-feedback">
+                    @if(classe?.invalid && (classe?.dirty || classe?.touched)){
+                      <div *ngIf="classe?.errors?.['required']" class="text-danger  mb-3'" >Class is required</div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="floatingInputInvalid4">Created at</label>
+                <div class="input-group ">
+                  <input readonly formControlName="createdAt" type="date"
+                         name="createdAt" class="form-control  "
+                         id="floatingInputInvalid4">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <label for="validationDefault03" class="form-label">Class</label>
-        <input type="text"  class="form-control" id="validationDefault03" name="classe" required>
-      </div>
-
-      <div class="col-md-3">
-        <label for="validationDefault05" class="form-label">Created At</label>
-        <input type="date"  class="form-control" id="validationDefault05" name="createdAt" required>
-      </div>
-
-      <div class="col-12">
-        <button class="btn btn-primary" type="submit">Submit form</button>
-      </div>
-    </form>
-
+    </div>
   `,
-  styleUrl:'./edit-student.component.css'
+  styles:[`
+    .modal-header{
+      background: #351D13;
+      color:white;
+    }
+    .btn-close{
+      --bs-btn-close-color:white;
+      --bs-btn-close-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+    }
+  `]
 })
 export class EditStudentComponent {
-  student!:Student;
-  protected formGroup =new FormGroup({
-    _id:new FormControl(''),
-    nom_complet:new FormControl('',[Validators.required]),
+
+  @Input()  student!:Student;
+  @Input() hiddenEditForm!:boolean;
+  @Input() formGroup:FormGroup=new FormGroup({
+    _id:new FormControl('', [Validators.required]),
+    nom_complet:new FormControl('',[Validators.required,Validators.minLength(3)]),
     email:new FormControl('',[Validators.required, Validators.email]),
     classe:new FormControl('', [Validators.required]),
-    createdAt:new FormControl('', [Validators.required,Validators.pattern('dd-MM-yyyy')])
+    telephone:new FormControl('', [Validators.required, Validators.pattern('')]),
+    createdAt:new FormControl('')
   });
 
-  protected email!:string;
-  constructor(private studentService:EtudiantService, private router:Router, private route:ActivatedRoute) {
-    this.email = this.route.snapshot.params['email'];
-    this.studentService.searchByEmail(this.email).subscribe(
+  constructor(private studentService:EtudiantService, private router:Router) {}
+
+  onSaveChanges(email:string,student:Student){
+    console.log(student);
+    console.log(email)
+    if(this.formGroup.valid){
+      this.studentService.editStudent(email,student).subscribe(
         value => {
           this.formGroup.value.nom_complet = value.nom_complet;
           this.formGroup.value.email = value.email;
           this.formGroup.value.classe = value.classe;
+          this.formGroup.value.telephone = value.telephone;
           this.formGroup.value.createdAt = value.createdAt;
-          this.formGroup.value._id = value._id;
         }
-    )
-  }
+      );
+      this.hiddenEditForm=true;
+      console.log(this.hiddenEditForm);
 
-  onEdit(email:string,student:Student) {
-      this.formGroup.value._id = this.route.snapshot.params['id'];
-      this.studentService.editStudent(email,student).subscribe(
-          value => {
-            this.formGroup.value.nom_complet = value.nom_complet;
-            this.formGroup.value.email = value.email;
-            this.formGroup.value.classe = value.classe;
-            this.formGroup.value.createdAt = value.createdAt;
-            this.formGroup.value._id = value._id;
-          }
-        )
+      this.router.navigate([`students`]).then(
+        ()  =>  window.location.reload
+      );
+      alert("success ");
+    }
+    else{
+      alert("error ");
+      this.hiddenEditForm=false;
+
+    }
+
   }
 
   /**
    * Getters
    */
   get nom_complet(){ return this.formGroup.get('nom_complet');}
-
-
+  get email(){return this.formGroup.get('email');}
+  get classe(){return this.formGroup.get('classe');}
+  get telephone(){return this.formGroup.get('telephone');}
 
 }
