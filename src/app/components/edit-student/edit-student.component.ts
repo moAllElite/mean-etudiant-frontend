@@ -3,7 +3,7 @@ import {Student} from "../../model/student.model";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import { Router} from "@angular/router";
 import {EtudiantService} from "../../service/etudiant.service";
-import {DatePipe, NgIf} from "@angular/common";
+import {DatePipe,  NgIf} from "@angular/common";
 
 
 @Component({
@@ -26,22 +26,17 @@ import {DatePipe, NgIf} from "@angular/common";
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form class="needs-validation" [formGroup]="formGroup" (ngSubmit)="onSaveChanges(student.email,student)" >
+            <form class="needs-validation" [formGroup]="formGroup" (ngSubmit)="onSaveChanges(student.email)" >
               <div class="input-group  mb-3">
                 <span class="input-group-text" id="basic-addon1">ID</span>
                 <input id="_id" name="_id" class="form-control" type="text" formControlName="_id"
                        aria-label="readonly input example" readonly>
               </div>
               <label for="floatingInputInvalid" class="form-label">Email</label>
-              <div  class="form-floating mb-3">
-                <input formControlName="email" type="email" name="email"
-                       [class]="email?.valid?'form-control':'form-control is-invalid' "
-                       id="floatingInputInvalid" placeholder="name@example.com">
-                @if( email?.invalid && (email?.dirty || email?.touched)){
-                  <label for="floatingInputInvalid" *ngIf="email?.errors?.['required']" class="text-danger" >Class is required</label>
-                  <label for="floatingInputInvalid" class="text-danger" *ngIf="email?.errors?.['email'] ">Email is invalid</label>
+              <div  class="input-group mb-3">
+                <input formControlName="email" type="email" name="email" [class]="email?.valid?'form-control':'form-control is-invalid' "
+                       readonly id="floatingInputInvalid">
 
-                }
               </div>
               <div class="mb-3">
                 <label for="validationCustomUsername" class="form-label">Full name</label>
@@ -80,7 +75,7 @@ import {DatePipe, NgIf} from "@angular/common";
               <div class="mb-3">
                 <label class="form-label" for="floatingInputInvalid4">Created at</label>
                 <div class="input-group ">
-                  <input readonly formControlName="createdAt" type="date"
+                  <input readonly value="{{student.createdAt| date:'yyyy-MM-dd'}}" formControlName="createdAt" type="date"
                          name="createdAt" class="form-control  "
                          id="floatingInputInvalid4">
                 </div>
@@ -116,29 +111,29 @@ export class EditStudentComponent {
     email:new FormControl('',[Validators.required, Validators.email]),
     classe:new FormControl('', [Validators.required]),
     telephone:new FormControl('', [Validators.required, Validators.pattern('')]),
-    createdAt:new FormControl('')
+    createdAt:new FormControl("", [Validators.required]),
   });
 
   constructor(private studentService:EtudiantService, private router:Router) {}
 
-  onSaveChanges(email:string,student:Student){
-    console.log(student);
-    console.log(email)
+  onSaveChanges(email:string){
     if(this.formGroup.valid){
-      this.studentService.editStudent(email,student).subscribe(
+      this.student.email = this.formGroup.value.email;
+      this.student.nom_complet = this.formGroup.value.nom_complet;
+      this.student.classe = this.formGroup.value.classe;
+      this.student.telephone = this.formGroup.value.telephone;
+      this.student.createdAt = this.formGroup.value.createdAt;
+
+      console.log(this.student.createdAt);
+      this.studentService.editStudent(email,this.student).subscribe(
         value => {
-          this.formGroup.value.nom_complet = value.nom_complet;
-          this.formGroup.value.email = value.email;
-          this.formGroup.value.classe = value.classe;
-          this.formGroup.value.telephone = value.telephone;
-          this.formGroup.value.createdAt = value.createdAt;
+          value=this.student;
+          console.log(value);
         }
       );
-      this.hiddenEditForm=true;
-      console.log(this.hiddenEditForm);
 
       this.router.navigate([`students`]).then(
-        ()  =>  window.location.reload
+       ()  =>  window.location.reload()
       );
       alert("success ");
     }

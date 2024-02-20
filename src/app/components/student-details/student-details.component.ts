@@ -95,7 +95,7 @@ export class StudentDetailsComponent {
     email:new FormControl('',[Validators.required, Validators.email]),
     classe:new FormControl('', [Validators.required]),
     telephone:new FormControl('', [Validators.required, Validators.pattern('')]),
-    createdAt:new FormControl('', [Validators.required,Validators.pattern('dd-MM-yyyy')])
+    createdAt:new FormControl('', )
   });
   delete$!:Observable<Messages>;
   constructor(private route: ActivatedRoute,readonly router:Router,readonly etudiantService: EtudiantService) {
@@ -122,21 +122,12 @@ export class StudentDetailsComponent {
       nom_complet:new FormControl(student.nom_complet,[Validators.required]),
       email:new FormControl(student.email,[Validators.required, Validators.email]),
       classe:new FormControl(student.classe, [Validators.required]),
-      telephone:new FormControl(student.telephone, [Validators.required, Validators.pattern('')]),
-      createdAt:new FormControl('',[Validators.required, Validators.pattern('dd-MM-yyyy')])
+      telephone:new FormControl(student.telephone, ),
+      createdAt:new FormControl(student.createdAt)
     });
     this.form.controls.createdAt.setValue(formatDate(new Date(),'yyyy-MM-dd','en'));
     console.log(this.form.controls.createdAt.value);
     this.hiddenEditForm.set(false);
-    if (this.form.statusChanges){
-     student.nom_complet=<string>this.form.controls.nom_complet.value?.toString();
-      if (typeof this.form.controls.email.value === "string") {
-        student.email = this.form.controls.email.value;
-      }
-      student.classe = <string>this.form.controls.classe.value?.toString();
-      student.createdAt = <string>this.form.controls.createdAt.value?.toString();
-      student.telephone = <string>this.form.controls.telephone.value?.toString();
-    }
     console.log(this.hiddenEditForm());
   }
 }
