@@ -1,4 +1,9 @@
 # Angular Etudiant  MEAN
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=moAllElite_mean-etudiant-frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=moAllElite_mean-etudiant-frontend)
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=moAllElite_mean-etudiant-frontend)
+
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=moAllElite_mean-etudiant-frontend)](https://sonarcloud.io/summary/new_code?id=moAllElite_mean-etudiant-frontend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.2.
 
