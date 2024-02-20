@@ -145,7 +145,9 @@ export class EditStudentComponent {
   }
 
   /**
-   * Getters
+   * Getters pour récupérer les champs du formulaire
+   * pour collecter les erreurs
+   * @returns {FormControl}
    */
   get nom_complet(){ return this.formGroup.get('nom_complet');}
   get email(){return this.formGroup.get('email');}
