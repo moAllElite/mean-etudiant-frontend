@@ -111,7 +111,6 @@ export class EditStudentComponent {
     email:new FormControl('',[Validators.required, Validators.email]),
     classe:new FormControl('', [Validators.required]),
     telephone:new FormControl('', [Validators.required, Validators.pattern('')]),
-    createdAt:new FormControl("", [Validators.required]),
   });
 
   constructor(private studentService:EtudiantService, private router:Router) {}

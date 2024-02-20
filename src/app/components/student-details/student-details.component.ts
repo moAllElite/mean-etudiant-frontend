@@ -125,7 +125,7 @@ export class StudentDetailsComponent {
       telephone:new FormControl(student.telephone, ),
       createdAt:new FormControl(student.createdAt)
     });
-    this.form.controls.createdAt.setValue(formatDate(new Date(),'yyyy-MM-dd','en'));
+    this.form.controls.createdAt.setValue(formatDate(student.createdAt,'yyyy-MM-dd','en'));
     console.log(this.form.controls.createdAt.value);
     this.hiddenEditForm.set(false);
     console.log(this.hiddenEditForm());
